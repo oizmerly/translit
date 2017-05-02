@@ -4,7 +4,8 @@ import Foundation
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    let transliterator = Transliterator()
+    
     let statusItem = NSStatusBar.system().statusItem(withLength:NSVariableStatusItemLength)
 
     @IBOutlet weak var statusMenu: NSMenu!
