@@ -1,0 +1,4 @@
+/// Translit converter
+class Transliterator {
+
+}

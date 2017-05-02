@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="translit" customModuleProvider="target">
+            <connections>
+                <outlet property="menuItemDisable" destination="eiO-cS-xcj" id="9Vv-Gz-nsE"/>
+                <outlet property="menuItemEnable" destination="8BV-NN-PX8" id="yJa-oJ-CZD"/>
+                <outlet property="statusMenu" destination="yuG-7p-LRD" id="Bkr-8z-5un"/>
+            </connections>
+        </customObject>
+        <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+        <menu id="yuG-7p-LRD">
+            <items>
+                <menuItem title="Enable" id="8BV-NN-PX8">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="enable:" target="Voe-Tx-rLC" id="3l9-aH-rC2"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Disable" id="eiO-cS-xcj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="disable:" target="Voe-Tx-rLC" id="yEL-jz-WYx"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="uaB-bN-IPS"/>
+                <menuItem title="Quit" id="uQt-Pw-bpP">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="quitApp:" target="Voe-Tx-rLC" id="2f1-kz-AIu"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-490" y="-176"/>
+        </menu>
+    </objects>
+</document>
