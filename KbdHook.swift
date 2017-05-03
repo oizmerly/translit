@@ -28,26 +28,44 @@ class KbdHook {
         let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CGEvent.tapEnable(tap: eventTap!, enable: true)
-        // CFRunLoopRun()
+        // CFRunLoopRun() we are already on event loop, no need to run a new one, right? \todo
     }
     
     private static func handleTapEvent(event: CGEvent, proxy: CGEventTapProxy) {
-        if event.type != CGEventType.keyDown {
+        if event.type == CGEventType.flagsChanged {
+            LOG.info("flags")
             return
+        }
+        if event.type != CGEventType.keyDown {
+            // \todo currently we don't support key up, it seems this doesn't cause any visible problem. Need additional
+            // investigation...
+            return
+        }
+        for mask in [CGEventFlags.maskControl,
+                    CGEventFlags.maskAlternate,
+                    CGEventFlags.maskCommand,
+                    CGEventFlags.maskHelp, 
+                    CGEventFlags.maskSecondaryFn,
+                    CGEventFlags.maskNumericPad] {
+            if event.flags.contains(mask) {
+                LOG.info("skip event")
+                return
+            }
         }
         // read keyboard raw data
         var count = 1
         var rawKey: UniChar = 0
         event.keyboardGetUnicodeString(maxStringLength: count, actualStringLength: &count, unicodeString: &rawKey)
         if count != 1 {
-            LOG.info("wrong raw input length: \(count)")
+            LOG.info("wrong raw key length: \(count)")
             return
         }
         let key = Character(UnicodeScalar(rawKey)!)
-        if !transliterator.translate(char: key) {
-            LOG.info("swallow keyboard event")
+        let result = transliterator.translate(key: key)
+        if !result.continue {
+            LOG.info("swallow keyboard event and post translation")
             event.type = CGEventType.null
-            post(text: "\(key)", proxy: proxy)
+            post(text: result.translation!, proxy: proxy)
         }
     }
     
