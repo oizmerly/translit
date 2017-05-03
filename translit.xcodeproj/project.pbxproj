@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D0A34681EB9479600FDAB95 /* conf.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D0A34671EB9479600FDAB95 /* conf.json */; };
+		0D0A346B1EBA249700FDAB95 /* KbdHook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0A346A1EBA249700FDAB95 /* KbdHook.swift */; };
 		0DE3045E1EB8D5FC00627C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3045D1EB8D5FC00627C77 /* AppDelegate.swift */; };
 		0DE304601EB8D5FC00627C77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3045F1EB8D5FC00627C77 /* Assets.xcassets */; };
 		0DE304631EB8D5FC00627C77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DE304611EB8D5FC00627C77 /* MainMenu.xib */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		0D0A34671EB9479600FDAB95 /* conf.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = conf.json; sourceTree = "<group>"; };
+		0D0A346A1EBA249700FDAB95 /* KbdHook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KbdHook.swift; path = ../KbdHook.swift; sourceTree = "<group>"; };
 		0DE3045A1EB8D5FC00627C77 /* translit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = translit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE3045D1EB8D5FC00627C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DE3045F1EB8D5FC00627C77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				0DE304611EB8D5FC00627C77 /* MainMenu.xib */,
 				0DE304641EB8D5FC00627C77 /* Info.plist */,
 				0DE3046A1EB8D72200627C77 /* env.swift */,
+				0D0A346A1EBA249700FDAB95 /* KbdHook.swift */,
 				0DE3046C1EB8DA1000627C77 /* Transliterator.swift */,
 			);
 			path = translit;
@@ -149,6 +152,7 @@
 			files = (
 				0DE3045E1EB8D5FC00627C77 /* AppDelegate.swift in Sources */,
 				0DE3046D1EB8DA1000627C77 /* Transliterator.swift in Sources */,
+				0D0A346B1EBA249700FDAB95 /* KbdHook.swift in Sources */,
 				0DE3046B1EB8D72200627C77 /* env.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

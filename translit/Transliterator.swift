@@ -3,13 +3,19 @@ import Foundation
 
 /// Translit converter
 class Transliterator {
+    let encodings: [String:String]
+    
     init() {
-//        let asset = NSDataAsset(name: "conf", bundle: Bundle.main)
-//        let json = try? JSONSerialization.jsonObject(with: asset!.data, options: JSONSerialization.ReadingOptions.allowFragments)
-//        print(json)
+        LOG.info("read configuration")
         let path = Bundle.main.path(forResource: "conf", ofType: "json")
-        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
-        let jsonData = try? JSONSerialization.jsonObject(with: data!, options: []) as! [String:Any]
-        let encoding = jsonData!["encoding"]
+        let confData = try? Data(contentsOf: URL(fileURLWithPath: path!))
+        let conf = try? JSONSerialization.jsonObject(with: confData!, options: []) as! [String:Any]
+        encodings = conf!["encoding"] as! [String:String]
+        LOG.info("conf: \(encodings)")
+    }
+    
+    func translate(char: Character) -> Bool {
+        LOG.info("translate '\(char)'")
+        return false
     }
 }
