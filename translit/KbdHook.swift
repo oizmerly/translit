@@ -49,6 +49,7 @@ class KbdHook {
                     CGEventFlags.maskNumericPad] {
             if event.flags.contains(mask) {
                 LOG.info("skip event")
+                transliterator.drop()
                 return
             }
         }
