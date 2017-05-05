@@ -21,4 +21,28 @@ class ConfManager {
     public static func get(_ key: String) -> Any? {
         return  conf![key]
     }
+ 
+    //------------------------------------------------------------------------------------------------------------------
+    // dynamic conf
+    
+    private static var enabledStatus = false
+    public static var enabled: Bool { get { return enabledStatus } }
+    
+    /// Enable transliteration
+    public static func enable() {
+        LOG.info()
+        enabledStatus = true
+    }
+
+    /// disable transliteration
+    public static func disable() {
+        LOG.info()
+        enabledStatus = false
+    }
+    
+    /// Enable enabled status
+    public static func toggle() {
+        LOG.info("\(enabled) -> \(!enabled)")
+        enabledStatus = !enabled
+    }
 }

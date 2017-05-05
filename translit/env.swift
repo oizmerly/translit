@@ -8,6 +8,10 @@ class LOG {
     static func setup(enabled status: Bool) {
         enabled = status
     }
+
+    static func none(_ message: String = "", function: String = #function, line: Int = #line) {
+        // do nothing, dummy log
+    }
     
     static func info(_ message: String = "", function: String = #function, line: Int = #line) {
         out(severity: "INFO", message: message, function: function, line: line)

@@ -6,6 +6,7 @@ class Transliterator {
     private let encodings: [String:String]
     private var combinationsCharSet = Set<Character>()
     private var currentCombination = ""
+    private var uppercase = false
     
     public init() {
         LOG.info()
@@ -20,19 +21,31 @@ class Transliterator {
     }
     
     public func translate(key: Character) -> (continue: Bool, translation: String?, backspaces: Int) {
+        let char = String(key).lowercased()
         LOG.info("translate '\(key.description)'")
-        if !combinationsCharSet.contains(key) {
+        if !combinationsCharSet.contains(Character(char)) {
             LOG.info("this key isn't a part of any combination")
             drop()
             return (continue: true, translation: nil, backspaces: 0)
         }
-        currentCombination.append(key)
+        currentCombination.append(char)
         var translation = encodings[currentCombination]
         if translation == nil && !currentCombination.isEmpty {
-            currentCombination = String(key)
+            drop()
+            currentCombination = char
             translation = encodings[currentCombination]
         }
         LOG.info("\(currentCombination) -> \(translation)")
+        
+        // fix case
+        if char != String(key) {
+            LOG.info("uppercased")
+            uppercase = true
+        }
+        if uppercase {
+            translation = translation?.uppercased()
+        }
+        
         return (continue: translation == nil,
                 translation: translation,
                 backspaces: currentCombination.characters.count > 1 ? 1 : 0)
@@ -42,5 +55,6 @@ class Transliterator {
     public func drop() {
         LOG.info()
         currentCombination = ""
+        uppercase = false
     }
 }

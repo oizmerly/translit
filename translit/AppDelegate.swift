@@ -16,15 +16,13 @@ import Foundation
     }
     
     @IBAction func enable(_: NSMenuItem) {
-        LOG.info()
-        menuItemEnable.isHidden = true
-        menuItemDisable.isHidden = false
+        ConfManager.enable()
+        refreshMenu()
     }
     
     @IBAction func disable(_: NSMenuItem) {
-        LOG.info()
-        menuItemEnable.isHidden = false
-        menuItemDisable.isHidden = true
+        ConfManager.disable()
+        refreshMenu()
     }
     
     func applicationDidFinishLaunching(_: Notification) {
@@ -34,14 +32,21 @@ import Foundation
         
         // setup status bar UI
         systemMenuIcon.image = NSImage(named: "StatusIcon")
-        systemMenuIcon.title = "Translit"
+        systemMenuIcon.title = "Ы"
         systemMenuIcon.toolTip = "Translit"
         systemMenuIcon.menu = statusMenu
+        
+        refreshMenu()
         
         KbdHook.install()
     }
 
     func applicationWillTerminate(_: Notification) {
         LOG.info()
+    }
+    
+    private func refreshMenu() {
+        menuItemEnable.isHidden = ConfManager.enabled
+        menuItemDisable.isHidden = !ConfManager.enabled
     }
 }

@@ -32,6 +32,10 @@ class KbdHook {
     }
     
     private static func handleTapEvent(event: CGEvent, proxy: CGEventTapProxy) {
+        if !ConfManager.enabled {
+            LOG.none("disabled")
+            return
+        }
         if event.type == CGEventType.flagsChanged {
             LOG.info("flags")
             return
