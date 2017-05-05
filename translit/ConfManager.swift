@@ -5,9 +5,11 @@ import Foundation
 class ConfManager {
     private static let confFileName = "conf"
     private static var conf: [String:Any]?
+    private static var appDelegate: AppDelegate?
     
     /// Load app settings
-    public static func load() {
+    public static func initialize(app: AppDelegate) {
+        appDelegate = app
         LOG.info("load configuration")
         let path = Bundle.main.path(forResource: confFileName, ofType: "json")
         let confData = try? Data(contentsOf: URL(fileURLWithPath: path!))
@@ -32,17 +34,23 @@ class ConfManager {
     public static func enable() {
         LOG.info()
         enabledStatus = true
+        appDelegate?.refreshMenu()
     }
 
     /// disable transliteration
     public static func disable() {
         LOG.info()
         enabledStatus = false
+        appDelegate?.refreshMenu()
     }
     
     /// Enable enabled status
     public static func toggle() {
         LOG.info("\(enabled) -> \(!enabled)")
-        enabledStatus = !enabled
+        if enabled {
+            disable()
+        } else {
+            enable()
+        }
     }
 }

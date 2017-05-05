@@ -43,6 +43,7 @@ class Transliterator {
             uppercase = true
         }
         if uppercase {
+            LOG.info("upercase result")
             translation = translation?.uppercased()
         }
         

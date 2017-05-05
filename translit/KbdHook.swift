@@ -4,6 +4,7 @@ import Foundation
 /// Keyboard interceptor. KbdHook is a singleton, so everything is static
 class KbdHook {
     private static let transliterator = Transliterator()
+    private static var toggleCode: UInt64 = 0
     
     /// Install keyboard hook
     public static func install() {
@@ -29,20 +30,25 @@ class KbdHook {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
         CGEvent.tapEnable(tap: eventTap!, enable: true)
         // CFRunLoopRun() we are already on event loop, no need to run a new one, right? \todo
+        
+        toggleCode = ConfManager.get("toggle") as! UInt64
     }
     
     private static func handleTapEvent(event: CGEvent, proxy: CGEventTapProxy) {
-        if !ConfManager.enabled {
-            LOG.none("disabled")
-            return
-        }
         if event.type == CGEventType.flagsChanged {
-            LOG.info("flags")
+            LOG.info("flags \(event.flags.rawValue)")
+            if event.flags.rawValue == toggleCode {
+               ConfManager.toggle()
+            }
             return
         }
         if event.type != CGEventType.keyDown {
             // \todo currently we don't support key up, it seems this doesn't cause any visible problem. Need additional
             // investigation...
+            return
+        }
+        if !ConfManager.enabled {
+            LOG.info("disabled")
             return
         }
         for mask in [CGEventFlags.maskControl,

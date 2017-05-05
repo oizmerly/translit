@@ -28,11 +28,10 @@ import Foundation
     func applicationDidFinishLaunching(_: Notification) {
         LOG.setup(enabled: CommandLine.arguments.contains("--debug"))
         LOG.info()
-        ConfManager.load()
+        
+        ConfManager.initialize(app: self)
         
         // setup status bar UI
-        systemMenuIcon.image = NSImage(named: "StatusIcon")
-        systemMenuIcon.title = "Ы"
         systemMenuIcon.toolTip = "Translit"
         systemMenuIcon.menu = statusMenu
         
@@ -45,7 +44,9 @@ import Foundation
         LOG.info()
     }
     
-    private func refreshMenu() {
+    public func refreshMenu() {
+        systemMenuIcon.image = ConfManager.enabled ?
+            NSImage(named: "AppIconEnabled") : NSImage(named: "AppIconDisabled")
         menuItemEnable.isHidden = ConfManager.enabled
         menuItemDisable.isHidden = !ConfManager.enabled
     }
