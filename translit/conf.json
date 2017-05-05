@@ -1,5 +1,5 @@
 {
-    "toggle": 786721,
+    "toggle": ["LCTRL", "LOPTION"],
     "encodings": {
         "a"     :   "а",
         "b"     :   "б",

@@ -12,7 +12,7 @@ class Transliterator {
         LOG.info()
         encodings = ConfManager.get("encodings") as! [String:String]
         LOG.info("conf: \(encodings)")
-        // init
+        // combinationsCharSet is the set of all "relevant" characters
         for encoding in encodings {
             for char in encoding.key.characters {
                 combinationsCharSet.insert(char)

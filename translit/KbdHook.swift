@@ -5,7 +5,19 @@ import Foundation
 class KbdHook {
     private static let transliterator = Transliterator()
     private static var toggleCode: UInt64 = 0
-    
+    // maping special key -> flag, we use it to init toggle sequence
+    private static let specialKeys: [String: UInt64] = [
+        "LSHIFT"  : 0x20102,
+        "RSHIFT"  : 0x20104,
+        "LCTRL"   : 0x40101,
+        "RCTRL"  : 0x42100,
+        "LOPTION" : 0x80120,
+        "ROPTION" : 0x80140,
+        "LCMD"    : 0x100108,
+        "RCMD"    : 0x100110,
+        "FN"      : 0x800100
+    ]
+
     /// Install keyboard hook
     public static func install() {
         let eventTap = CGEvent.tapCreate(
@@ -31,12 +43,15 @@ class KbdHook {
         CGEvent.tapEnable(tap: eventTap!, enable: true)
         // CFRunLoopRun() we are already on event loop, no need to run a new one, right? \todo
         
-        toggleCode = ConfManager.get("toggle") as! UInt64
+        let toggle = ConfManager.get("toggle") as! [String]
+        LOG.info("toggle sequence: \(toggle)")
+        toggleCode = toggle.map({specialKeys[$0]!}).reduce(0, { $0 | $1 })
+        LOG.info("toggle code: \(toggleCode)")
     }
     
     private static func handleTapEvent(event: CGEvent, proxy: CGEventTapProxy) {
         if event.type == CGEventType.flagsChanged {
-            LOG.info("flags \(event.flags.rawValue)")
+            LOG.info("flags: " + String(format: "%x", event.flags.rawValue))
             if event.flags.rawValue == toggleCode {
                ConfManager.toggle()
             }
