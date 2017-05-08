@@ -1,6 +1,5 @@
 # Транслит для OSX
 
-
 ![picture](accessibility.png)
 
 # License
