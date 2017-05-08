@@ -54,6 +54,8 @@ class KbdHook {
             LOG.info("flags: " + String(format: "%x", event.flags.rawValue))
             if event.flags.rawValue == toggleCode {
                ConfManager.toggle()
+            } else {
+                transliterator.drop()
             }
             return
         }
