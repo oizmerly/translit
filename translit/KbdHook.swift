@@ -35,7 +35,7 @@ class KbdHook {
                  event: CGEvent,
                  refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? in
                      KbdHook.handleTapEvent(event: event, proxy: proxy)
-                     return Unmanaged.passRetained(event)
+                     return Unmanaged.passUnretained(event)
             },
             userInfo: nil)
         let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
