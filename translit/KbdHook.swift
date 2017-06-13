@@ -10,7 +10,7 @@ class KbdHook {
         "LSHIFT"  : 0x20102,
         "RSHIFT"  : 0x20104,
         "LCTRL"   : 0x40101,
-        "RCTRL"  : 0x42100,
+        "RCTRL"   : 0x42100,
         "LOPTION" : 0x80120,
         "ROPTION" : 0x80140,
         "LCMD"    : 0x100108,
