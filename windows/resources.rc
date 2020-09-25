@@ -1,0 +1,15 @@
+#include "resource.h"
+
+IDI_APP_ICON_PASSIVE	ICON	"AppIconPassive.ico"
+IDI_APP_ICON_ACTIVE		ICON	"AppIconActive.ico"
+
+IDR_TRAY_MENU MENU
+BEGIN
+    POPUP ""
+    BEGIN
+		MENUITEM "About",			  IDC_TRAY_ABOUT
+        MENUITEM "Check for updates", IDC_TRAY_CHECK_FOR_UPDATE        
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",			  IDC_TRAY_EXIT
+    END
+END
